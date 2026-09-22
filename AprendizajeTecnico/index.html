@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOLTIX - Industrial Automation Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Three.js y OrbitControls para el renderizado 3D -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- NAVEGACIÓN Y SELECCIÓN DE ÁREA -->
+    <header id="header">
+      <div class="logo">⚡ VOLTIX <span>Industrial Suite</span></div>
+      <nav id="module-nav">
+        <button class="nav-btn active" data-module="power">1. Control Electromecánico</button>
+        <button class="nav-btn" data-module="vfd">2. Variador VFD</button>
+        <button class="nav-btn" data-module="terminals">3. Bornera (6/9 Polos)</button>
+        <button class="nav-btn" data-module="plc">4. Programación PLC Ladder</button>
+        <button class="nav-btn" data-module="process">5. Planta y Sensores 3D</button>
+      </nav>
+      <button id="btn-loto" class="loto-btn unlocked">🔓 LOTO: DESBLOQUEADO</button>
+    </header>
+
+    <div id="main-content">
+      <!-- PANEL DE CONTROL Y CONFIGURACIÓN -->
+      <aside id="sidebar">
+        <!-- Módulo 1 & 2: Mandos Directos / VFD -->
+        <section id="panel-controls" class="panel-section">
+          <h3>Controles de Mando</h3>
+          <div class="btn-group">
+            <button id="btn-start" class="btn btn-green">S2: Arranque (NO)</button>
+            <button id="btn-stop" class="btn btn-red">S1: Parada (NC)</button>
+          </div>
+          <div id="vfd-slider-box" class="slider-box hidden">
+            <label>Frecuencia VFD: <span id="vfd-hz">30</span> Hz</label>
+            <input type="range" id="slider-freq" min="0" max="60" value="30">
+          </div>
+        </section>
+
+        <!-- Módulo 3: Motor y Polos -->
+        <section id="panel-motor" class="panel-section">
+          <h3>Parámetros del Motor</h3>
+          <label>Polos del Estator:</label>
+          <select id="select-poles">
+            <option value="2">2 Polos (3600 RPM)</option>
+            <option value="4" selected>4 Polos (1800 RPM)</option>
+            <option value="6">6 Polos (1200 RPM)</option>
+            <option value="8">8 Polos (900 RPM)</option>
+          </select>
+
+          <label>Conexión Bornera:</label>
+          <select id="select-terminal">
+            <option value="delta">6 Bornes: Delta (Δ) - 220V</option>
+            <option value="star">6 Bornes: Estrella (Y) - 380V/440V</option>
+            <option value="yy">9 Bornes: Doble Estrella (YY) - 220V</option>
+            <option value="yseries">9 Bornes: Estrella Serie (Y) - 440V</option>
+          </select>
+        </section>
+
+        <!-- Módulo 4: Editor Ladder (PLC) -->
+        <section id="panel-plc" class="panel-section hidden">
+          <h3>Editor Ladder (PLC)</h3>
+          <div class="ladder-editor">
+            <div class="rung">
+              <span class="rail">|</span>
+              <button class="ladder-elem" id="ladder-i1">-[ I0.0 (S2) ]-</button>
+              <button class="ladder-elem" id="ladder-i2">-[/ I0.1 (S1) ]-</button>
+              <span class="wire">-------</span>
+              <button class="ladder-elem coil" id="ladder-q1">( Q0.0 KM1 )</button>
+              <span class="rail">|</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Instrumentación y Multímetro -->
+        <section id="panel-multimeter" class="panel-section">
+          <h3>Multímetro Industrial</h3>
+          <div class="dmm-screen">
+            <span id="dmm-value">0.0</span> <span id="dmm-unit">V AC</span>
+          </div>
+          <div class="dmm-controls">
+            <button class="btn-dmm" data-mode="vac">V~ (AC)</button>
+            <button class="btn-dmm" data-mode="vdc">V= (DC)</button>
+            <button class="btn-dmm" data-mode="cont">Continuidad</button>
+          </div>
+        </section>
+
+        <!-- Modo Troubleshooting (Averías) -->
+        <section id="panel-faults" class="panel-section">
+          <h3>Diagnóstico de Averías</h3>
+          <button id="btn-gen-fault" class="btn btn-yellow">Generar Falla Aleatoria</button>
+          <button id="btn-fix-fault" class="btn btn-blue">Reparar / Reset</button>
+          <div id="fault-status" class="status-msg">Sistema Normal</div>
+        </section>
+
+        <!-- Telemetría en Tiempo Real -->
+        <section id="panel-telemetry" class="panel-section dashboard">
+          <h3>Telemetría</h3>
+          <p>Estado: <strong id="val-status">DETENIDO</strong></p>
+          <p>Frecuencia: <span id="val-freq">0.0</span> Hz</p>
+          <p>Velocidad: <span id="val-rpm">0</span> RPM</p>
+          <p>Corriente RMS: <span id="val-amps">0.0</span> A</p>
+          <p>Torque: <span id="val-torque">0.0</span> N·m</p>
+        </section>
+      </aside>
+
+      <!-- VISUALIZADOR 3D -->
+      <main id="canvas-container"></main>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

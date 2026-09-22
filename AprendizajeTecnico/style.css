@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Header & Navegación */
+#header {
+  height: 55px;
+  background: #1a1c23;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 2px solid #2d313e;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #00bcd4;
+}
+
+.logo span { color: #888; font-size: 0.8rem; }
+
+#module-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  background: #252836;
+  color: #aaa;
+  border: 1px solid #3b3e52;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.nav-btn.active, .nav-btn:hover {
+  background: #00bcd4;
+  color: #000;
+  font-weight: bold;
+}
+
+.loto-btn {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loto-btn.locked {
+  background: #f44336;
+}
+
+/* Layout Principal */
+#main-content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 55px);
+}
+
+#sidebar {
+  width: 360px;
+  background: #181a20;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  border-right: 1px solid #2a2d3d;
+}
+
+#canvas-container {
+  flex: 1;
+  height: 100%;
+  background: #090a0f;
+}
+
+/* Paneles */
+.panel-section {
+  background: #212431;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #2e3245;
+}
+
+.panel-section h3 {
+  font-size: 0.85rem;
+  color: #00bcd4;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+label { font-size: 0.8rem; display: block; margin-top: 6px; }
+
+select, input[type="range"] {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  background: #12141d;
+  color: #fff;
+  border: 1px solid #3b3f58;
+  border-radius: 4px;
+}
+
+.btn-group { display: flex; gap: 8px; margin-top: 6px; }
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-green { background: #388e3c; color: white; }
+.btn-red { background: #d32f2f; color: white; }
+.btn-yellow { background: #ffa000; color: black; width: 100%; margin-bottom: 6px; }
+.btn-blue { background: #1976d2; color: white; width: 100%; }
+
+/* Multímetro */
+.dmm-screen {
+  background: #8fa382;
+  color: #112211;
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: right;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.dmm-controls { display: flex; gap: 4px; }
+.btn-dmm {
+  flex: 1;
+  padding: 6px;
+  background: #33374c;
+  color: #fff;
+  border: 1px solid #484d6b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+/* Ladder Editor */
+.ladder-editor { background: #12141d; padding: 10px; border-radius: 4px; }
+.rung { display: flex; align-items: center; justify-content: space-between; font-family: monospace; }
+.ladder-elem { background: transparent; border: none; color: #4caf50; cursor: pointer; font-family: monospace; }
+
+.status-msg { font-size: 0.8rem; margin-top: 6px; color: #aaa; text-align: center; }
+.dashboard p { font-size: 0.8rem; margin: 4px 0; }
+.hidden { display: none !important; }
